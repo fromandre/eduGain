@@ -1,0 +1,27 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh16380\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+Class Entity\
+\
+Racchiude tutti i dati estratti dall\'92API di eduGain relativi ad una entit\'e0.\
+Fra questi dati consideriamo il nome (o friendly_name), l\'92entity_id utile per altre chiamate all\'92API di eduGain al fine di estrarre dettagli\
+relativi al servizio, i vari tipi di descrizione (dsc, dn, sn), il link di login tramite il quale \'e8 possibile accedere al servizio, il logo del servizio restituito come immagine,\
+la Registration Authority ed infine lo status (valore boolean che conferma lo stato di attivit\'e0 del servizio, fornito da eduGain) e la data di utilizzo pi\'f9 recente relativa al servizio.\
+\
+Fra i metodi della classe entity vogliamo implementare createEntity(), il costruttore tramite il quale impostiamo le propriet\'e0 nome ed entity_id; i metodi  setDescription(), setLogin(), setLogo() e setRegAuth() tramite i quali settiamo le propriet\'e0 rimanenti.\
+\
+Interfaccia Service\
+\
+E\'92 l\'92interfaccia principale che utilizzeremo per la gestione delle nostre entit\'e0 ( e relativi servizi). Fra i metodi svilupperemo un metodo getData() che restituisce un array associativo contenente alcune propriet\'e0 dell\'92oggetto, fra cui nome, entity_id e vari tipi di \
+descrizione; il metodo getLogo() che restituisce il logo relativo al servizio sotto forma di immagine (ad esempio in PHP tramite la libreria GD che permette di gestire le immagini), getLink() che restituisce una stringa corrispondente al link di login ed infine il metodo\
+checkStatus() che restituisce un array associativo contente il valore boleeano corrispondente allo stato del servizio, e un valore date relativo all\'92ultimo utilizzo del servizio.\
+\
+\
+\
+Link del diagramma UML: \
+https://lucid.app/lucidchart/6e3f50f2-8295-4afc-bd08-0ee0be8f9705/edit?viewport_loc=-12%2C143%2C1948%2C1083%2C0_0&invitationId=inv_8b5d4dce-7f23-40f0-a01c-41d18780e2aa}
