@@ -6,7 +6,7 @@ class entity
     public $entity_id;
     public $dsc, $dn, $sn;
     public $login_link;
-//    public $logo;
+    public $logo;
     public $reg_auth;
     public $status;
     public $ls_date;
@@ -31,7 +31,13 @@ class entity
 
 //    public function setLogo(){
 //    }
+
     public function printData(){
-        var_dump($this->name, $this->entity_id, $this->reg_auth, $this->login_link, $this->dn);
+        echo "<br><b> Entity ID: </b>".$this->entity_id."<br>";
+        echo "<br><b> Name: </b>".$this->name."<br>";
+        echo "<br><b> Federation: </b>".$this->reg_auth."<br>";
+        echo "<br><b> Login Link: </b>".$this->login_link."<br>";
+        echo "<br><b> Descriptions: </b><br>DSC: ".$this->dsc."<br>DN: ".$this->dn."<br>SN: ".$this->sn."<br>";
+        echo "<br><br>";
     }
 }
