@@ -1,49 +1,38 @@
 <?php
 include("entity.php");
+error_reporting(E_ALL ^ E_NOTICE);
 
-//error_reporting(E_ALL ^ E_NOTICE);
+function searchLocalXML()
+{
+    $sp = array();
+    $xml_parse = json_encode(simplexml_load_file('services.xml'));
+    $xml = json_decode($xml_parse, true);
+    foreach ($xml as $value){
+        foreach ($value as $v){
+            if (isset($v["SPSSODescriptor"])) {
+                $tmp_e = $v["@attributes"]["entityID"];
+//                echo json_encode($v)."<br><br><br>";
+                if (isset($v["SPSSODescriptor"]["AttributeConsumingService"]["ServiceName"])) {
+                    $tmp_en = $v["SPSSODescriptor"]["AttributeConsumingService"]["ServiceName"];
+                }				else{
+                    $tmp_en = $v["SPSSODescriptor"]["AttributeConsumingService"]["ServiceDescription"];
+                }
+                if (isset($v["Organization"]["OrganizationDisplayName"])) $tmp_orgn = $v["Organization"]["OrganizationDisplayName"];
+                if (isset($v["Organization"]["OrganizationURL"])) $tmp_orgl = $v["Organization"]["OrganizationURL"];
+                $tmp = new entity($tmp_e);
+                $tmp->setName($tmp_en);
+                $tmp->setOrg($tmp_orgn, $tmp_orgl);
+                array_push($sp, $tmp);
+            }
+        }
 
-//Inserisco endpoint dell'API di eduGain in due costanti
-const SP_LIST_ENTITIES_JSON = "https://technical.edugain.org/api.php?action=list_entities&format=default&type=2";
-const SP_ENTITY_DETAILS = "https://technical.edugain.org/api.php?action=show_entity_details&e_id=";
-//const SP_SHOWENTITY_XML = "https://technical.edugain.org/api.php?action=show_entity&e_id=";
-
-
-function searchByApi(){
-    //Estraggo l'array associativo ed eseguo un ciclo for su tutti i suoi elementi
-    $results = json_decode(file_get_contents(SP_LIST_ENTITIES_JSON), true);
-    $data = array();
-
-    foreach ($results as $result) {
-        $e_id =  $result[0]['entityid'];
-        $e_regauth = $result[0]['regauth'];
-        $e_name = $result[0]['e_displayname'];
-        //Creo la nuova entità
-        //Al momento della creazione il costruttore si occupa di interrogare l'API per i restanti dati
-        $tmp_entity = new entity($e_name, $e_id, $e_regauth);
-        //Inserisco l'elemento entità all'interno di un array
-        array_push($data, $tmp_entity);
     }
-    //Al termine del ciclo restituisco il json contenente le entità
-    echo json_encode($data);
+    echo json_encode($sp);
 }
 
+searchLocalXML();
 
-//function searchByXML(){
-//    $results = json_decode(file_get_contents(SP_LIST_ENTITIES_JSON), true);
-////    $data = array();
-//    foreach ($results as $result){
-//        $id = $result[0]['entityid'];
-//        $xml = file_get_contents(SP_SHOWENTITY_XML.$id);
-//        $xml_parse = simplexml_load_string($xml) or die ("Impossibile caricare");
-//        $reg_auth = $xml_parse->EntityDescriptor->registrationAuthority;
-//        echo $reg_auth;
-//        echo "<br> <br> <br> <br>";
-//
-//    }
-//}
 
-searchByApi();
 
 
 
